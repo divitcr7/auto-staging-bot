@@ -264,7 +264,7 @@ async function phase1Planning() {
   done("S1.3", "Ordering computed");
 
   // S1.4: Plan commits
-  const totalCommits = config.TOTAL_DAYS * config.COMMITS_PER_DAY;
+  const plannedCommits = config.TOTAL_DAYS * config.COMMITS_PER_DAY;
   const days = [];
 
   // Categorize files
@@ -330,7 +330,7 @@ async function phase1Planning() {
     );
   }
 
-  const filesPerCommit = Math.ceil(fileQueue.length / totalCommits);
+  const filesPerCommit = Math.ceil(fileQueue.length / plannedCommits);
   let currentFileIndex = 0;
 
   for (let day = 1; day <= config.TOTAL_DAYS; day++) {
