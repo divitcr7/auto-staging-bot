@@ -419,7 +419,7 @@ async function phase1Planning() {
 
   done(
     "S1.4",
-    `Planned ${totalCommits} commits over ${config.TOTAL_DAYS} days`
+    `Planned ${plannedCommits} commits over ${config.TOTAL_DAYS} days`
   );
 
   // S1.5: Compose messages
@@ -521,9 +521,9 @@ async function phase1Planning() {
     return planData;
   }
 
-  const totalCommits = days.reduce((sum, day) => sum + day.commits.length, 0);
+  const actualCommits = days.reduce((sum, day) => sum + day.commits.length, 0);
   log(
-    `Plan generated for ${config.TOTAL_DAYS} × ${config.COMMITS_PER_DAY} = ${totalCommits} commits`
+    `Plan generated for ${config.TOTAL_DAYS} × ${config.COMMITS_PER_DAY} = ${actualCommits} commits`
   );
 
   const reviewChoice = await promptUser("Review now? (yes/no)");
