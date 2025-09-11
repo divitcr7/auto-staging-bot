@@ -862,6 +862,12 @@ async function main() {
     REVIEW_MODE: process.env.REVIEW_MODE || "ask",
   };
 
+  // Handle version flag
+  if (args.includes("--version") || args.includes("-v")) {
+    console.log("Staged Git Commit Bot v1.0.0");
+    process.exit(0);
+  }
+
   // Handle help flag
   if (args.includes("--help") || args.includes("-h")) {
     console.log(`
