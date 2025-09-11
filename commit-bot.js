@@ -862,13 +862,67 @@ async function main() {
     REVIEW_MODE: process.env.REVIEW_MODE || "ask",
   };
 
+  // Handle help flag
+  if (args.includes("--help") || args.includes("-h")) {
+    console.log(`
+🤖 Staged Git Commit Bot v1.0.0
+
+USAGE:
+  node commit-bot.js <SOURCE_DIR> [TARGET_REPO_DIR] [TOTAL_DAYS] [COMMITS_PER_DAY]
+  
+  Or use environment variables:
+  SOURCE_DIR=/path/to/source TARGET_REPO_DIR=/path/to/target node commit-bot.js
+
+REQUIRED:
+  SOURCE_DIR        Source project directory to analyze
+
+OPTIONAL:
+  TARGET_REPO_DIR   Target Git repository (default: current directory)
+  TOTAL_DAYS        Days to spread commits across (default: 5)
+  COMMITS_PER_DAY   Maximum commits per day (default: 3)
+
+ENVIRONMENT VARIABLES:
+  DAILY_RUN_HOURS   Time budget per day in hours (default: 3)
+  TIMEZONE          Timezone for commits (default: America/Chicago)
+  PUSH_MODE         'manual' or 'auto' (default: manual)
+  COMMIT_MODE       'manual' or 'auto' (default: manual)
+  DRY_RUN           'true' to preview only (default: false)
+  MAX_FILES_PER_COMMIT  Maximum files per commit
+  SKIP_PATTERNS     Comma-separated patterns to skip
+  PROJECT_ID        Stable project identifier
+  AUTHOR_NAME       Git author name
+  AUTHOR_EMAIL      Git author email
+  REVIEW_MODE       'ask', 'force', or 'skip' (default: ask)
+
+EXAMPLES:
+  # Basic usage
+  node commit-bot.js ./my-project ./target-repo 5 3
+  
+  # Auto mode with environment variables
+  SOURCE_DIR=./my-project COMMIT_MODE=auto node commit-bot.js
+  
+  # Dry run preview
+  DRY_RUN=true node commit-bot.js ./my-project
+  
+  # Create example project for testing
+  ./example.sh
+
+For more information, see README.md
+`);
+    process.exit(0);
+  }
+
   if (!config.SOURCE_DIR) {
+    console.error("❌ ERROR: SOURCE_DIR is required");
+    console.error("");
     console.error(
       "Usage: node commit-bot.js <SOURCE_DIR> [TARGET_REPO_DIR] [TOTAL_DAYS] [COMMITS_PER_DAY]"
     );
     console.error(
       "Or set environment variables: SOURCE_DIR, TARGET_REPO_DIR, etc."
     );
+    console.error("");
+    console.error('Run "node commit-bot.js --help" for more information');
     process.exit(1);
   }
 
