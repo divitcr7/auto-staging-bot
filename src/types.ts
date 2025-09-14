@@ -25,10 +25,11 @@ export interface BaseOptions {
 export interface AIOptions extends BaseOptions {
   provider?: string;
   model?: string;
-  maxKb?: number;
+  maxKb?: string;
   apply?: boolean;
   json?: boolean;
   printRedactions?: boolean;
+  output?: string;
 }
 
 // Git types

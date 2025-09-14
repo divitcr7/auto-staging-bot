@@ -5,7 +5,11 @@ import { BaseOptions } from './types.js';
 
 // Logging utilities
 export class Logger {
-  constructor(private options: BaseOptions = {}) {}
+  public options: BaseOptions;
+
+  constructor(options: BaseOptions = {}) {
+    this.options = options;
+  }
 
   info(message: string) {
     if (this.options.noColor) {
@@ -59,7 +63,7 @@ export class Logger {
 }
 
 // Spinner utilities
-export function createSpinner(text: string, options: BaseOptions = {}) {
+export function createSpinner(text: string, options: BaseOptions & { json?: boolean } = {}) {
   if (options.json || !process.stdout.isTTY) {
     return {
       start: () => {},

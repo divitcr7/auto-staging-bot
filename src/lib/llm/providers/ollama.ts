@@ -56,7 +56,7 @@ export class OllamaProvider implements LLMProvider {
     return data.response.trim();
   }
 
-  async isConfigured(): Promise<boolean> {
+  async testConnection(): Promise<boolean> {
     try {
       // Test connection to Ollama
       const baseEndpoint = this.endpoint.endsWith('/') ? this.endpoint : `${this.endpoint}/`;
@@ -72,10 +72,8 @@ export class OllamaProvider implements LLMProvider {
     }
   }
 
-  // Override to handle async check
   isConfigured(): boolean {
     // For synchronous check, assume it's configured if endpoint is set
-    // The actual check happens in async method above
     return Boolean(this.endpoint);
   }
 }
