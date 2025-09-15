@@ -33,10 +33,10 @@
     "email": "contributors@git-oops.dev"
   },
   "license": "MIT",
-  "homepage": "https://github.com/your-username/git-oops",
+  "homepage": "https://auto-staging-bot.vercel.app/",
   "repository": {
     "type": "git",
-    "url": "https://github.com/your-username/git-oops.git"
+    "url": "https://github.com/divitcr7/git-oops.git"
   },
   "bugs": {
     "url": "https://github.com/your-username/git-oops/issues"
