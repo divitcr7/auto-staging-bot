@@ -1,14 +1,38 @@
 // Theme management
 class ThemeManager {
   constructor() {
-    this.theme = localStorage.getItem("theme") || "dark";
+    this.theme = this.getInitialTheme();
     this.themeToggle = document.querySelector(".theme-toggle");
     this.init();
+  }
+
+  getInitialTheme() {
+    // Check localStorage first
+    const storedTheme = localStorage.getItem("theme");
+    if (storedTheme) {
+      return storedTheme;
+    }
+
+    // Fall back to system preference
+    const systemPrefersDark = window.matchMedia(
+      "(prefers-color-scheme: dark)"
+    ).matches;
+    return systemPrefersDark ? "dark" : "light";
   }
 
   init() {
     this.setTheme(this.theme);
     this.themeToggle?.addEventListener("click", () => this.toggleTheme());
+
+    // Listen for system theme changes
+    window
+      .matchMedia("(prefers-color-scheme: dark)")
+      .addEventListener("change", (e) => {
+        // Only auto-switch if user hasn't manually set a preference
+        if (!localStorage.getItem("theme")) {
+          this.setTheme(e.matches ? "dark" : "light");
+        }
+      });
   }
 
   setTheme(theme) {
@@ -18,7 +42,13 @@ class ThemeManager {
 
     if (this.themeToggle) {
       const icon = this.themeToggle.querySelector(".theme-icon");
-      icon.textContent = theme === "dark" ? "☀️" : "🌙";
+      icon.textContent = theme === "light" ? "🌙" : "☀️";
+
+      // Update tooltip
+      this.themeToggle.setAttribute(
+        "title",
+        theme === "light" ? "Switch to dark theme" : "Switch to light theme"
+      );
     }
   }
 
@@ -161,9 +191,18 @@ class NavigationManager {
   handleScroll() {
     if (this.navHeader) {
       const scrolled = window.scrollY > 50;
-      this.navHeader.style.background = scrolled
-        ? "rgba(11, 15, 20, 0.95)"
-        : "rgba(11, 15, 20, 0.9)";
+      const theme =
+        document.documentElement.getAttribute("data-theme") || "dark";
+
+      if (theme === "light") {
+        this.navHeader.style.background = scrolled
+          ? "rgba(255, 255, 255, 0.98)"
+          : "rgba(255, 255, 255, 0.9)";
+      } else {
+        this.navHeader.style.background = scrolled
+          ? "rgba(11, 15, 20, 0.95)"
+          : "rgba(11, 15, 20, 0.9)";
+      }
     }
   }
 }
