@@ -1,7 +1,7 @@
 {
   "name": "git-oops",
   "version": "1.0.0",
-  "description": "A simple Git helper for common workflow fixes",
+  "description": "Fast, safe, terminal-first Git helper for common workflow fixes. Move commits off wrong branch, split changes, yank safely, and more.",
   "main": "dist/cli.js",
   "type": "module",
   "bin": {
@@ -10,18 +10,40 @@
   "scripts": {
     "build": "tsc",
     "dev": "tsc --watch",
-    "test": "echo 'Tests will be added later'",
-    "prepublishOnly": "npm run build"
+    "test": "node test-suite.js",
+    "prepublishOnly": "npm run build",
+    "postinstall": "echo '✅ git-oops installed! Try: git oops --help'"
   },
   "keywords": [
     "git",
     "cli",
-    "workflow"
+    "workflow",
+    "developer-tools",
+    "git-helper",
+    "commit",
+    "branch",
+    "stash",
+    "merge",
+    "revert",
+    "productivity",
+    "devops"
   ],
-  "author": "git-oops contributors",
+  "author": {
+    "name": "git-oops contributors",
+    "email": "contributors@git-oops.dev"
+  },
   "license": "MIT",
+  "homepage": "https://github.com/your-username/git-oops",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/your-username/git-oops.git"
+  },
+  "bugs": {
+    "url": "https://github.com/your-username/git-oops/issues"
+  },
   "engines": {
-    "node": ">=18.0.0"
+    "node": ">=18.0.0",
+    "npm": ">=8.0.0"
   },
   "dependencies": {
     "chalk": "^5.3.0",
