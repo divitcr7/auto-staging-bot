@@ -4,11 +4,15 @@ import { Command } from "commander";
 import { Logger } from "./utils.js";
 import { GitOopsError } from "./types.js";
 
-// Import only the core commands
+// Import commands
 import { wrongBranchCommand } from "./cmd/wrongBranch.js";
 import { splitCommand } from "./cmd/split.js";
 import { yankCommand } from "./cmd/yank.js";
 import { pocketCommand } from "./cmd/pocket.js";
+import { revertMergeCommand } from "./cmd/revertMerge.js";
+import { undoCommand } from "./cmd/undo.js";
+import { fixupCommand } from "./cmd/fixup.js";
+import { saveCommand } from "./cmd/save.js";
 
 const packageJson = await import("../package.json", { with: { type: "json" } });
 
@@ -22,11 +26,15 @@ async function main() {
     .option("--verbose", "enable verbose logging")
     .option("--no-color", "disable colored output");
 
-  // Add core commands only
+  // Add commands
   program.addCommand(wrongBranchCommand);
   program.addCommand(splitCommand);
   program.addCommand(yankCommand);
   program.addCommand(pocketCommand);
+  program.addCommand(revertMergeCommand);
+  program.addCommand(undoCommand);
+  program.addCommand(fixupCommand);
+  program.addCommand(saveCommand);
 
   // Error handling
   program.exitOverride();
