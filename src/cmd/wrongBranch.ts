@@ -39,13 +39,34 @@ export const wrongBranchCommand = new Command("wrong-branch")
           );
         }
 
-        // Get upstream
-        const upstream = await git.getUpstream(currentBranch);
+        // Get upstream or fall back to main/master
+        let upstream = await git.getUpstream(currentBranch);
         if (!upstream) {
-          throw new ValidationError(
-            `Branch '${currentBranch}' has no upstream. ` +
-              `Set upstream with: git push -u origin ${currentBranch}`
+          logger.verbose(
+            `No upstream found for '${currentBranch}', checking for main/master`
           );
+
+          // Try to find main or master branch
+          try {
+            await git.exec(["rev-parse", "--verify", "main"]);
+            upstream = "main";
+            logger.info(
+              `⚠️  No upstream configured, using local 'main' branch as reference`
+            );
+          } catch {
+            try {
+              await git.exec(["rev-parse", "--verify", "master"]);
+              upstream = "master";
+              logger.info(
+                `⚠️  No upstream configured, using local 'master' branch as reference`
+              );
+            } catch {
+              throw new ValidationError(
+                `Branch '${currentBranch}' has no upstream and no main/master branch found. ` +
+                  `Set upstream with: git push -u origin ${currentBranch}`
+              );
+            }
+          }
         }
 
         logger.verbose(`Upstream: ${upstream}`);
@@ -67,7 +88,10 @@ export const wrongBranchCommand = new Command("wrong-branch")
 
         for (const commit of commits.slice(0, 5)) {
           logger.info(
-            `  ${commit.sha.substring(0, 8)} ${truncateText(commit.subject, 60)}`
+            `  ${commit.sha.substring(0, 8)} ${truncateText(
+              commit.subject,
+              60
+            )}`
           );
         }
 
@@ -99,7 +123,10 @@ export const wrongBranchCommand = new Command("wrong-branch")
         // Confirm operation
         if (!options.yes) {
           const confirmed = await confirm(
-            `Move ${pluralize(uniqueCommits, "commit")} from '${currentBranch}' to new branch '${targetBranch}'?`,
+            `Move ${pluralize(
+              uniqueCommits,
+              "commit"
+            )} from '${currentBranch}' to new branch '${targetBranch}'?`,
             false,
             options
           );
@@ -131,7 +158,10 @@ export const wrongBranchCommand = new Command("wrong-branch")
 
         // Success!
         logger.success(
-          `✅ Successfully moved ${pluralize(uniqueCommits, "commit")} to '${targetBranch}'`
+          `✅ Successfully moved ${pluralize(
+            uniqueCommits,
+            "commit"
+          )} to '${targetBranch}'`
         );
         logger.info(`\n📝 Summary:`);
         logger.info(`  • Created branch: ${targetBranch}`);

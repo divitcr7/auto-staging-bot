@@ -25,9 +25,9 @@ export const splitCommand = new Command("split")
       logger.verbose(`Staged files: ${stagedFiles.length}`);
 
       if (stagedFiles.length === 0) {
-        throw new ValidationError(
-          "No staged files found. Stage some files first with: git add <files>"
-        );
+        logger.info("ℹ️  No staged changes to split");
+        logger.info("💡 Stage some files first with: git add <files>");
+        return;
       }
 
       // Group files by directory

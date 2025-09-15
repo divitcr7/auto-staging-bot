@@ -26,9 +26,11 @@ export const fixupCommand = new Command("fixup")
       const hasMessage = !!options.message;
 
       if (!hasChanges && !hasMessage) {
-        throw new ValidationError(
-          "Nothing to fixup. Stage some changes or provide a new message with --message"
+        logger.info("ℹ️  Nothing to fixup");
+        logger.info(
+          "💡 Stage some changes with 'git add' or provide a new message with --message"
         );
+        return;
       }
 
       // Get the last commit

@@ -54,6 +54,12 @@ export const pocketCommand = new Command("pocket")
 
       logger.success(`✅ Saved working state to pocket ref: ${pocketRef}`);
 
+      // Clean working directory after saving
+      logger.info("🧹 Cleaning working directory...");
+      await git.exec(["reset", "--hard", "HEAD"]);
+      await git.exec(["clean", "-fd"]);
+      logger.info("✨ Working directory is now clean");
+
       // Push pocket ref if requested
       if (options.push !== undefined) {
         const remote =
