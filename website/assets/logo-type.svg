@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 32" fill="none">
+  <text x="0" y="22" font-family="JetBrains Mono, monospace" font-size="16" font-weight="600" fill="#E6EDF3">
+    git-oops
+  </text>
+  <rect x="95" y="18" width="2" height="8" fill="#22C55E">
+    <animate attributeName="opacity" values="1;0;1" dur="1s" repeatCount="indefinite"/>
+  </rect>
+</svg>

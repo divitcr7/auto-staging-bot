@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://git-oops.dev/sitemap.xml

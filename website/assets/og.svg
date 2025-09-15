@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" fill="none">
+  <!-- Background -->
+  <rect width="1200" height="630" fill="#0B0F14"/>
+  
+  <!-- Grid pattern -->
+  <defs>
+    <pattern id="grid" width="50" height="50" patternUnits="userSpaceOnUse">
+      <path d="M 50 0 L 0 0 0 50" fill="none" stroke="#22C55E" stroke-width="0.5" opacity="0.1"/>
+    </pattern>
+  </defs>
+  <rect width="1200" height="630" fill="url(#grid)"/>
+  
+  <!-- Terminal window -->
+  <rect x="200" y="150" width="800" height="400" rx="12" fill="#161B22" stroke="#22C55E" stroke-width="2"/>
+  
+  <!-- Terminal header -->
+  <rect x="200" y="150" width="800" height="40" rx="12" fill="#21262D"/>
+  <rect x="200" y="178" width="800" height="2" fill="#22C55E"/>
+  
+  <!-- Terminal controls -->
+  <circle cx="225" cy="170" r="6" fill="#EF4444"/>
+  <circle cx="250" cy="170" r="6" fill="#F59E0B"/>
+  <circle cx="275" cy="170" r="6" fill="#22C55E"/>
+  
+  <!-- Terminal title -->
+  <text x="320" y="175" font-family="JetBrains Mono, monospace" font-size="14" fill="#94A3B8">~/my-project — git-oops</text>
+  
+  <!-- Logo -->
+  <g transform="translate(250, 220)">
+    <circle cx="20" cy="20" r="12" fill="none" stroke="#22C55E" stroke-width="3"/>
+    <circle cx="20" cy="40" r="12" fill="none" stroke="#22C55E" stroke-width="3"/>
+    <circle cx="60" cy="60" r="12" fill="none" stroke="#22C55E" stroke-width="3"/>
+    <path d="M20 32v6M20 46v6M32 40h16M48 52v6" stroke="#22C55E" stroke-width="3" stroke-linecap="round"/>
+    <circle cx="50" cy="30" r="8" fill="#EF4444"/>
+    <path d="M47 28h6M47 32h6" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round"/>
+  </g>
+  
+  <!-- Main title -->
+  <text x="380" y="260" font-family="JetBrains Mono, monospace" font-size="48" font-weight="700" fill="#E6EDF3">git-oops</text>
+  
+  <!-- Subtitle -->
+  <text x="380" y="300" font-family="Inter, sans-serif" font-size="24" fill="#94A3B8">CLI for real-world Git disasters</text>
+  
+  <!-- Command examples -->
+  <text x="250" y="360" font-family="JetBrains Mono, monospace" font-size="16" fill="#22C55E">$ git oops wrong-branch feature/fix</text>
+  <text x="250" y="390" font-family="JetBrains Mono, monospace" font-size="16" fill="#22C55E">$ git oops yank</text>
+  <text x="250" y="420" font-family="JetBrains Mono, monospace" font-size="16" fill="#22C55E">$ git oops save -m "WIP: feature work"</text>
+  
+  <!-- Bottom tagline -->
+  <text x="600" y="580" text-anchor="middle" font-family="Inter, sans-serif" font-size="18" fill="#6B7280">Non-destructive by default. Safety tags before risky operations.</text>
+</svg>

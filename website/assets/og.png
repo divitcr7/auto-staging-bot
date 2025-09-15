@@ -1,0 +1,7 @@
+# This would be a 1200x630 PNG image for Open Graph
+# For now, using a placeholder comment
+# In production, you'd want to generate an actual PNG with:
+# - Dark background (#0B0F14)
+# - git-oops logo and title
+# - Tagline: "CLI for real-world Git disasters"
+# - Terminal-style design elements
