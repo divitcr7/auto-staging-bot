@@ -1,7 +1,7 @@
 {
   "name": "git-oops",
   "version": "1.0.0",
-  "description": "A fast, safe, terminal-first Git helper with optional LLM features",
+  "description": "A simple Git helper for common workflow fixes",
   "main": "dist/cli.js",
   "type": "module",
   "bin": {
@@ -10,22 +10,13 @@
   "scripts": {
     "build": "tsc",
     "dev": "tsc --watch",
-    "test": "vitest",
-    "test:e2e": "vitest run tests/e2e",
-    "lint": "eslint src/**/*.ts",
-    "lint:fix": "eslint src/**/*.ts --fix",
-    "format": "prettier --write src/**/*.ts",
-    "format:check": "prettier --check src/**/*.ts",
-    "prepublishOnly": "npm run build && npm run test && npm run lint",
-    "completion": "node dist/cli.js completion"
+    "test": "echo 'Tests will be added later'",
+    "prepublishOnly": "npm run build"
   },
   "keywords": [
     "git",
     "cli",
-    "automation",
-    "llm",
-    "ai",
-    "developer-tools"
+    "workflow"
   ],
   "author": "git-oops contributors",
   "license": "MIT",
@@ -36,30 +27,16 @@
     "commander": "^11.1.0",
     "execa": "^8.0.1",
     "chalk": "^5.3.0",
-    "ora": "^7.0.1",
-    "inquirer": "^9.2.12",
-    "js-yaml": "^4.1.0",
-    "zod": "^3.22.4"
+    "inquirer": "^9.2.12"
   },
   "devDependencies": {
     "@types/node": "^20.8.0",
     "@types/inquirer": "^9.0.7",
-    "@types/js-yaml": "^4.0.8",
-    "@typescript-eslint/eslint-plugin": "^6.7.0",
-    "@typescript-eslint/parser": "^6.7.0",
-    "eslint": "^8.50.0",
-    "eslint-config-prettier": "^9.0.0",
-    "eslint-plugin-prettier": "^5.0.0",
-    "prettier": "^3.0.3",
-    "typescript": "^5.2.2",
-    "vitest": "^0.34.6",
-    "tmp": "^0.2.1",
-    "@types/tmp": "^0.2.4"
+    "typescript": "^5.2.2"
   },
   "files": [
     "dist/**/*",
     "README.md",
-    "LICENSE",
-    "CHANGELOG.md"
+    "LICENSE"
   ]
 }

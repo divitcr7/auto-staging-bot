@@ -1,29 +1,23 @@
 import { Command } from 'commander';
 import { Git } from '../lib/git.js';
-import { DiffManager } from '../lib/diff.js';
-import { SafetyManager } from '../lib/safety.js';
-import { Logger, pluralize } from '../utils.js';
+import { Logger, pluralize, getTopLevelDirectory } from '../utils.js';
 import { ValidationError } from '../types.js';
 export const splitCommand = new Command('split')
     .description('Split staged changes into separate commits by top-level directory')
     .option('--dry-run', 'show what would be done without executing')
     .option('--verbose', 'enable verbose logging')
-    .action(async (options, command) => {
+    .action(async (options) => {
     const logger = new Logger(options);
     const git = new Git(logger);
-    const diff = new DiffManager(git, logger);
-    const safety = new SafetyManager(git, logger);
     try {
-        // Validate repository state
-        await safety.validateRepositoryState();
         // Get staged files
-        const stagedFiles = await diff.getStagedFiles();
+        const stagedFiles = await git.getStagedFiles();
         logger.verbose(`Staged files: ${stagedFiles.length}`);
         if (stagedFiles.length === 0) {
             throw new ValidationError('No staged files found. Stage some files first with: git add <files>');
         }
         // Group files by directory
-        const groups = diff.groupFilesByDirectory(stagedFiles);
+        const groups = groupFilesByDirectory(stagedFiles);
         logger.verbose(`Found ${groups.length} directory groups`);
         if (groups.length <= 1) {
             logger.info('All staged files are in the same directory group - no split needed');
@@ -52,8 +46,6 @@ export const splitCommand = new Command('split')
             }
             return;
         }
-        // Create safety tag before starting
-        const safetyTag = await safety.createSafetyTag('split-before');
         // Perform the split
         logger.info('\n🚀 Splitting staged changes...');
         let commitsCreated = 0;
@@ -79,33 +71,12 @@ export const splitCommand = new Command('split')
             await git.commit(message);
             commitsCreated++;
         }
-        // Ensure all files are still staged after split
-        await git.stage(stagedFiles);
-        const finalStatus = await git.getStatus();
-        if (finalStatus.staged.length > 0) {
-            logger.warn('Some files remain staged after split - this is unexpected');
-            logger.info('Staged files:');
-            for (const file of finalStatus.staged) {
-                logger.info(`  • ${file}`);
-            }
-        }
         // Success!
         logger.success(`✅ Successfully created ${pluralize(commitsCreated, 'commit')}`);
         if (commitsCreated > 0) {
-            logger.info(`\n📝 Summary:`);
-            logger.info(`  • Split into: ${commitsCreated} commits`);
-            logger.info(`  • Safety tag: ${safetyTag.name}`);
-            // Show recovery instructions
-            const recoveryInstructions = safety.generateRecoveryInstructions(safetyTag, 'split');
-            logger.info(`\n🛡️  Recovery:`);
-            for (const instruction of recoveryInstructions) {
-                logger.dim(`  ${instruction}`);
-            }
-            // Show next steps
             logger.info(`\n🚀 Next steps:`);
             logger.info(`  • Review commits: git log --oneline -${commitsCreated}`);
             logger.info(`  • Push when ready: git push`);
-            logger.info(`  • Or combine again: git reset --soft HEAD~${commitsCreated}`);
         }
     }
     catch (error) {
@@ -113,4 +84,32 @@ export const splitCommand = new Command('split')
         throw error;
     }
 });
+// Helper function to group files by directory
+function groupFilesByDirectory(files) {
+    const groups = new Map();
+    for (const file of files) {
+        const directory = getTopLevelDirectory(file);
+        if (!groups.has(directory)) {
+            groups.set(directory, []);
+        }
+        groups.get(directory).push(file);
+    }
+    // Convert to array and sort by directory name
+    const result = [];
+    const sortedDirs = Array.from(groups.keys()).sort((a, b) => {
+        // _root_ comes last
+        if (a === '_root_' && b !== '_root_')
+            return 1;
+        if (b === '_root_' && a !== '_root_')
+            return -1;
+        return a.localeCompare(b);
+    });
+    for (const directory of sortedDirs) {
+        result.push({
+            directory,
+            files: groups.get(directory).sort(),
+        });
+    }
+    return result;
+}
 //# sourceMappingURL=split.js.map
