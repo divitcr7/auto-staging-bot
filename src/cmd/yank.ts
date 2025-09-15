@@ -7,8 +7,9 @@ export const yankCommand = new Command("yank")
   .description(
     '"Just let me pull" - stash dirty work, pull with rebase, and restore'
   )
+  .option("--yes", "skip confirmation prompts")
   .option("--verbose", "enable verbose logging")
-  .action(async (options: BaseOptions) => {
+  .action(async (options: BaseOptions & { yes?: boolean }) => {
     const logger = new Logger(options);
     const git = new Git(logger);
 

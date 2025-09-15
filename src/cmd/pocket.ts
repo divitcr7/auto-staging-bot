@@ -5,11 +5,13 @@ import { BaseOptions, ValidationError } from "../types.js";
 
 interface PocketOptions extends BaseOptions {
   push?: string | boolean;
+  yes?: boolean;
 }
 
 export const pocketCommand = new Command("pocket")
   .description("Save exact working state to a hidden ref")
   .option("--push [remote]", "push the pocket ref to remote (default: origin)")
+  .option("--yes", "skip confirmation prompts")
   .option("--verbose", "enable verbose logging")
   .action(async (options: PocketOptions) => {
     const logger = new Logger(options);

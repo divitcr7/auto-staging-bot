@@ -5,6 +5,7 @@ import { BaseOptions, ValidationError, FileGroup } from "../types.js";
 
 interface SplitOptions extends BaseOptions {
   dryRun?: boolean;
+  yes?: boolean;
 }
 
 export const splitCommand = new Command("split")
@@ -12,6 +13,7 @@ export const splitCommand = new Command("split")
     "Split staged changes into separate commits by top-level directory"
   )
   .option("--dry-run", "show what would be done without executing")
+  .option("--yes", "skip confirmation prompts")
   .option("--verbose", "enable verbose logging")
   .action(async (options: SplitOptions) => {
     const logger = new Logger(options);
