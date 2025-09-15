@@ -1,18 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none">
-  <!-- Git branch structure -->
-  <circle cx="6" cy="6" r="2" fill="#22C55E" stroke="#22C55E" stroke-width="1"/>
-  <circle cx="6" cy="12" r="2" fill="#22C55E" stroke="#22C55E" stroke-width="1"/>
-  <circle cx="18" cy="18" r="2" fill="#22C55E" stroke="#22C55E" stroke-width="1"/>
-  
-  <!-- Branch lines -->
-  <path d="M6 8v2M6 14v2M8 12h8M16 14v2" stroke="#22C55E" stroke-width="2" stroke-linecap="round"/>
-  
-  <!-- "Oops" indicator - broken/error state -->
-  <circle cx="15" cy="9" r="2.5" fill="#EF4444"/>
-  <path d="M14 8.5h2M14 9.5h2" stroke="#FFFFFF" stroke-width="1.5" stroke-linecap="round"/>
-  
-  <!-- Terminal cursor -->
-  <rect x="20" y="8" width="1" height="2" fill="#22C55E">
-    <animate attributeName="opacity" values="1;0;1" dur="1s" repeatCount="indefinite"/>
-  </rect>
+  <!-- Clean, minimal "undo" arrow representing fixing git mistakes -->
+  <path d="M9 7l-5 5 5 5" stroke="#22C55E" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M20 12H4" stroke="#22C55E" stroke-width="2.5" stroke-linecap="round"/>
+  <!-- Small dot to represent the "oops" moment -->
+  <circle cx="20" cy="8" r="1.5" fill="#22C55E"/>
 </svg>

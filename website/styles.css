@@ -197,11 +197,6 @@ pre code {
   height: 24px;
 }
 
-.nav-cursor {
-  color: var(--text-accent);
-  animation: blink 1s infinite;
-}
-
 @keyframes blink {
   0%,
   50% {
