@@ -3,6 +3,7 @@
 import { Command } from "commander";
 import { Logger } from "./utils.js";
 import { GitOopsError } from "./types.js";
+import { addCustomHelp, addCustomHelpToCommand } from "./help.js";
 
 // Import commands
 import { wrongBranchCommand } from "./cmd/wrongBranch.js";
@@ -21,20 +22,30 @@ async function main() {
 
   program
     .name("git-oops")
-    .description("A simple Git helper for common workflow fixes")
+    .description("CLI for real-world Git disasters")
     .version(packageJson.default.version)
     .option("--verbose", "enable verbose logging")
     .option("--no-color", "disable colored output");
 
-  // Add commands
-  program.addCommand(wrongBranchCommand);
-  program.addCommand(splitCommand);
-  program.addCommand(yankCommand);
-  program.addCommand(pocketCommand);
-  program.addCommand(revertMergeCommand);
-  program.addCommand(undoCommand);
-  program.addCommand(fixupCommand);
-  program.addCommand(saveCommand);
+  // Add custom help system
+  addCustomHelp(program);
+
+  // Add commands with custom help
+  const commands = [
+    wrongBranchCommand,
+    splitCommand,
+    yankCommand,
+    pocketCommand,
+    revertMergeCommand,
+    undoCommand,
+    fixupCommand,
+    saveCommand,
+  ];
+
+  commands.forEach((cmd) => {
+    addCustomHelpToCommand(cmd);
+    program.addCommand(cmd);
+  });
 
   // Error handling
   program.exitOverride();

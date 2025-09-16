@@ -1,6 +1,6 @@
 {
   "name": "git-oops",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Fast, safe, terminal-first Git helper for common workflow fixes. Move commits off wrong branch, split changes, yank safely, and more.",
   "main": "dist/cli.js",
   "type": "module",
@@ -33,13 +33,13 @@
     "email": "contributors@git-oops.dev"
   },
   "license": "MIT",
-  "homepage": "https://auto-staging-bot.vercel.app/",
+  "homepage": "https://git-oops.dev",
   "repository": {
     "type": "git",
-    "url": "https://github.com/divitcr7/git-oops.git"
+    "url": "https://github.com/divitcr7/auto-staging-bot.git"
   },
   "bugs": {
-    "url": "https://github.com/your-username/git-oops/issues"
+    "url": "https://github.com/divitcr7/auto-staging-bot/issues"
   },
   "engines": {
     "node": ">=18.0.0",
