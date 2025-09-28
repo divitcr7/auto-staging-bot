@@ -278,18 +278,6 @@ class KeyboardShortcuts {
           e.preventDefault();
           this.navigateTo("#install");
           break;
-        case "c":
-          e.preventDefault();
-          this.navigateTo("#commands");
-          break;
-        case "s":
-          e.preventDefault();
-          this.navigateTo("#safety");
-          break;
-        case "f":
-          e.preventDefault();
-          this.navigateTo("#faq");
-          break;
         case "/":
           e.preventDefault();
           this.focusFilter();
