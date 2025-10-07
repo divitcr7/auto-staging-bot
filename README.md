@@ -1,6 +1,7 @@
 # git-oops
 
 [![Node.js Version](https://img.shields.io/badge/node-%3E%3D18.0.0-brightgreen.svg)](https://nodejs.org/)
+[![npm downloads](https://img.shields.io/npm/dt/git-oops.svg)](https://www.npmjs.com/package/git-oops)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 **Fast, safe, terminal-first Git helper for common workflow fixes.**
